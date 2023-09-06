@@ -1,0 +1,7 @@
+details = {
+    "detail1": {"packages": 500, "operations": "abcdcefg"},
+    "detail2": {"packages": 1000, "operations": "acdeg"},
+    "detail3": {"packages": 5000, "operations": "babc"},
+    "detail4": {"packages": 2000, "operations": "cagdf"},
+}
+

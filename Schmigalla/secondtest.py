@@ -32,16 +32,8 @@ for detail in details.values():
         adj_matrix[destination, source] += packages
 # Ustaw wartości powyżej przekątnej na 0
 np.fill_diagonal(adj_matrix, 0)
-# Znajdź kolejność liter na podstawie sum pakietów
-kolejnosc = []
-while len(kolejnosc) < adj_matrix.shape[0]:
-    sums = np.sum(adj_matrix, axis=1)
-    remaining_letters = [chr(ord('a') + i) for i in range(adj_matrix.shape[0]) if chr(ord('a') + i) not in kolejnosc]
-    max_letter = max(remaining_letters, key=lambda letter: sums[ord(letter) - ord_a])
-    kolejnosc.append(max_letter)
 
-
-    
+kolejnosc = ['h', 'j', 'i', 'g', 'd', 'b', 'a', 'c', 'f']
 m = 10
 n = 10
 G = nx.triangular_lattice_graph(m, n)
