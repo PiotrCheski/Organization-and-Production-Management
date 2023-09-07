@@ -1,4 +1,4 @@
-## Machine Placement on a Triangular Grid
+## Machine Placement on a Triangular Grid using the Schmigalla Method
 
 This script not only performs a task related to optimizing the order of operations or tasks based on certain package requirements and their relationships but also demonstrates a method for placing machines on a triangular grid. The triangular grid is created using NetworkX and serves as the spatial layout for various machines or nodes.
 
