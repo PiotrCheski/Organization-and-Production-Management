@@ -33,49 +33,37 @@ for detail in details.values():
 # Ustaw wartości powyżej przekątnej na 0
 np.fill_diagonal(adj_matrix, 0)
 
-kolejnosc = ['h', 'j', 'i', 'g', 'd', 'b', 'a', 'c', 'f']
-m = 10
-n = 10
-G = nx.triangular_lattice_graph(m, n)
-all_neighbors = {node: set(G.neighbors(node)) for node in G.nodes()}
 
+kolejnosc = []
+max_value_index = np.unravel_index(np.argmax(adj_matrix), adj_matrix.shape)
+row_index, col_index = max_value_index
+kolejnosc.append(chr(ord('a') + row_index))
+kolejnosc.append(chr(ord('a') + col_index))
 
-first_position = (2, 5)
-labels = {first_position: kolejnosc[0]}
+letter_sums = {}
 
-second_position = random.choice(list(all_neighbors[first_position]))
-labels[second_position] = kolejnosc[1]
+# Initialize a variable to keep track of whether progress was made
+progress_made = True
 
-total_cost = adj_matrix[ord(kolejnosc[0]) - ord('a')][ord(kolejnosc[1]) - ord('a')]
-chosen_nodes = {first_position, second_position}
+while len(kolejnosc) < adj_matrix.shape[0] and progress_made:
+    max_value = 0
+    max_letter = None
+    progress_made = False  # Initialize progress_made as False
 
-combined_neighbors = set(all_neighbors[first_position].union(all_neighbors[second_position]))
+    for i in range(adj_matrix.shape[0]):
+        if chr(ord('a') + i) not in kolejnosc:
+            letter_sum = 0
+            for j in range(adj_matrix.shape[0]):
+                if chr(ord('a') + j) in kolejnosc:
+                    letter_sum += adj_matrix[i, j]
 
-for i in kolejnosc[2:]:
-    potential_positions = list(combined_neighbors - chosen_nodes)
-    min_cost = float('inf')
-    next_position = None
-    
-    print(i)
-    for position in potential_positions:
-        cost = 0
-        for label, node in labels.items():
-            cost += adj_matrix[ord(i) - ord('a')][ord(node) - ord('a')] * nx.shortest_path_length(G, source=position, target=label)
-        print(position, cost)
-        if cost < min_cost:
-            min_cost = cost
-            next_position = position
-    print("The best position:")
-    print(next_position, min_cost)
-    labels[next_position] = i
-    chosen_nodes.add(next_position)
-    combined_neighbors.update(all_neighbors[next_position])
-    total_cost += min_cost
+            if letter_sum > max_value:
+                max_value = letter_sum
+                max_letter = chr(ord('a') + i)
 
-print("Total Cost:", total_cost)
+    if max_letter:
+        kolejnosc.append(max_letter)
+        letter_sums[max_letter] = max_value
+        progress_made = True  # Set progress_made to True if progress was made
 
-
-pos = nx.get_node_attributes(G, 'pos')
-nx.draw(G, pos=pos, with_labels=True)
-nx.draw_networkx_labels(G, pos, labels=labels, font_size=16, font_color='r')
-plt.show()
+print(kolejnosc)

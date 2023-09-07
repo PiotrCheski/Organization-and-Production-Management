@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import random
 
 details = {
-    "detail1": {"packages": 220, "operations": "cbabdgihjf"},
-    "detail2": {"packages": 120, "operations": "cabagdhijh"},
-    "detail3": {"packages": 100, "operations": "acfbigfc"},
-    "detail4": {"packages": 400, "operations": "cacbdgjhj"},
+    "detail1": {"packages": 500, "operations": "abcdcefg"},
+    "detail2": {"packages": 1000, "operations": "acdeg"},
+    "detail3": {"packages": 5000, "operations": "babc"},
+    "detail4": {"packages": 2000, "operations": "cagdf"},
 }
 
 all_operations = [detail["operations"] for detail in details.values()]
@@ -39,9 +39,7 @@ while len(kolejnosc) < adj_matrix.shape[0]:
     remaining_letters = [chr(ord('a') + i) for i in range(adj_matrix.shape[0]) if chr(ord('a') + i) not in kolejnosc]
     max_letter = max(remaining_letters, key=lambda letter: sums[ord(letter) - ord_a])
     kolejnosc.append(max_letter)
-
-
-    
+ 
 m = 10
 n = 10
 G = nx.triangular_lattice_graph(m, n)
